@@ -6,6 +6,8 @@ var wins = 0;
 var loss = 0;
 var guessesLeft = 0;
 var gameOver = false;
+var rightLetter = new Audio("assets/sounds/rightLetter.mp3");
+var wrongLetter = new Audio("assets/sounds/wrongLetter.mp3");
 
 
 $(function() {
@@ -16,6 +18,7 @@ $(function() {
             if (!gameOver) {
                 if (validate(event.key)) {
                     if (currentWord.includes(event.key)) {
+                        rightLetter.play();
                         replaceUnderscore(event.key);
                         $("#currentWord").html("Word: " + wordGuessed);
                         if (currentWord === wordGuessed) {
@@ -26,6 +29,7 @@ $(function() {
                             gameOver = true;
                         }
                     } else if (!guessed.includes(event.key)) {
+                        wrongLetter.play();
                         guessed.push(event.key);
                         $("#lettersGuessed").html("Letters Guessed so far: " + guessed);
                         if (guessesLeft > 0) {
